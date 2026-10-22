@@ -1,0 +1,167 @@
+{
+  "name": "M04_Assistente_Investimentos",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clientes",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1024,
+        64
+      ],
+      "id": "ab633d71-7c47-4ecf-ad7f-050178863fa4",
+      "name": "Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        96,
+        96
+      ],
+      "id": "c86781b9-8e31-49e2-8a46-941a3007cce9",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "url": "https://digitalinnovationone.github.io/dio-lab-assistente-investimentos-rpa-n8n/data.csv",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text",
+              "outputPropertyName": "csv_texto"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -800,
+        240
+      ],
+      "id": "19bffd1e-de1a-4806-8ddc-871d3413682a",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst entrada = $input.first()?.json;\nconst texto = entrada?.csv_texto;\n\nif (typeof texto !== 'string' || !texto.trim()) {\n  throw new Error('Campo csv_texto ausente ou vazio');\n}\n\nconst linhas = texto.replace(/\\r\\n?/g, '\\n')\n  .trim()\n  .split('\\n')\n  .map(linha => linha.trim())\n  .filter(Boolean);\n\nconst cabecalho = linhas.shift()?.replace(/^\\uFEFF/, '').toLowerCase();\n\nif (cabecalho !== 'perfil,produto,minimo,rentabilidade') {\n  throw new Error('Cabeçalho inesperado: ' + cabecalho);\n}\n\nconst produtos = linhas.map((linha, indice) => {\n  const campos = linha.split(',').map(campo => campo.trim());\n\n  if (campos.length !== 4) {\n    throw new Error('Linha ' + (indice + 2) + ': esperados 4 campos');\n  }\n\n  const [perfil, produto, minimoTexto, rentabilidade] = campos;\n  const minimo = Number(minimoTexto);\n\n  if (!Number.isFinite(minimo) || minimo < 0) {\n    throw new Error('Valor mínimo inválido na linha ' + (indice + 2));\n  }\n\n  return {\n    json: {\n      perfil,\n      produto,\n      minimo,\n      rentabilidade\n    }\n  };\n});\n\nconsole.log('Produtos estruturados:', produtos.length);\n\nreturn produtos;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -576,
+        240
+      ],
+      "id": "c4322c86-17fb-4bac-9758-2ee5818943d5",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst clientes = $('Webhook').first().json.body.clientes;\nconst produtos = $input.all().map(item => item.json);\n\nif (!Array.isArray(clientes) || clientes.length === 0) {\n  throw new Error('Lista de clientes ausente ou vazia');\n}\n\nfunction normalizarPerfil(valor) {\n  return String(valor ?? '').trim().toLowerCase();\n}\n\nfunction converterSaldo(valor) {\n  const texto = String(valor ?? '')\n    .replace(/[^\\d,.-]/g, '')\n    .replace(/\\./g, '')\n    .replace(',', '.');\n\n  const saldo = Number(texto);\n\n  if (!Number.isFinite(saldo) || saldo < 0) {\n    throw new Error('Saldo inválido: ' + valor);\n  }\n\n  return saldo;\n}\n\nreturn clientes.map(cliente => {\n  const saldo = converterSaldo(cliente.saldo);\n\n  const opcoes = produtos\n    .filter(produto =>\n      normalizarPerfil(produto.perfil) ===\n        normalizarPerfil(cliente.perfil) &&\n      saldo >= Number(produto.minimo)\n    )\n    .map(produto => ({\n      produto: produto.produto,\n      minimo: produto.minimo,\n      rentabilidade: produto.rentabilidade\n    }));\n\n  return {\n    json: {\n      nome: cliente.nome,\n      email: cliente.email,\n      perfil: cliente.perfil,\n      saldo,\n      opcoes_elegiveis: opcoes\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        240
+      ],
+      "id": "1ed1220d-a969-4a57-b787-59c7ff6c60d7",
+      "name": "Associar Clientes e Produtos"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst textosPorPerfil = {\n  Conservador: 'Seu perfil prioriza previsibilidade e estabilidade.',\n  Moderado: 'Seu perfil busca equilibrar estabilidade e oscilação.',\n  Arrojado: 'Seu perfil admite maior oscilação nos investimentos.'\n};\n\nconst formatarMoeda = valor =>\n  new Intl.NumberFormat('pt-BR', {\n    style: 'currency',\n    currency: 'BRL'\n  }).format(valor);\n\nreturn $input.all().map(item => {\n  const cliente = item.json;\n  const opcoes = cliente.opcoes_elegiveis;\n\n  if (!Array.isArray(opcoes) || !Number.isFinite(cliente.saldo)) {\n    throw new Error('Cliente com saldo ou opções inválidos');\n  }\n\n  const lista = opcoes.length\n    ? opcoes.map(opcao =>\n        '- ' + opcao.produto +\n        ' | mínimo: ' + formatarMoeda(opcao.minimo) +\n        ' | rentabilidade informada: ' + opcao.rentabilidade\n      ).join('\\n')\n    : 'Nenhum produto fictício atende aos critérios de perfil e saldo.';\n\n  const mensagem = [\n    'Olá, ' + cliente.nome + '!',\n    'Perfil: ' + cliente.perfil + '. ' +\n      (textosPorPerfil[cliente.perfil] || 'Perfil não reconhecido.'),\n    'Saldo informado: ' + formatarMoeda(cliente.saldo),\n    'Opções ilustrativas da base da DIO:\\n' + lista,\n    'Material fictício para aprendizagem, sem recomendação financeira real.'\n  ].join('\\n\\n');\n\n  return { json: { ...cliente, mensagem } };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        96
+      ],
+      "id": "9742d466-9438-4a23-aab9-56a2a854f65b",
+      "name": "Gerar Mensagens por Perfil"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Associar Clientes e Produtos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Associar Clientes e Produtos": {
+      "main": [
+        [
+          {
+            "node": "Gerar Mensagens por Perfil",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Gerar Mensagens por Perfil": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "nodeGroups": [],
+  "tags": []
+}
