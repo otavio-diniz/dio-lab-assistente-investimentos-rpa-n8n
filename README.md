@@ -122,6 +122,3 @@ A realização acadêmica tem **certificação institucional**: certificado do d
 
 **Licenciamento:** não foi localizada uma licença explícita na raiz do repositório de origem consultado. Este fork não cria uma licença nova para os arquivos da DIO, tampouco pressupõe autorização de redistribuição comercial. Qualquer licenciamento definitivo exige conciliação dos direitos dos componentes afetados.
 
-Projeto educacional de **Otávio Diniz**, desenvolvido a partir do laboratório da **Digital Innovation One (DIO)** no curso Santander 2026 — Automação com n8n. A página HTML, o CSV e o notebook de referência pertencem ao repositório de origem, preservados neste fork com os respectivos créditos.
-
-**Licenciamento:** não foi identificada uma licença explícita na raiz da fonte consultada. Este README não atribui licença nova ao material de terceiros nem concede permissões de redistribuição além das aplicáveis ao próprio fork/plataforma. Para uso comercial ou redistribuição fora do contexto original, confirme os direitos dos materiais da DIO.
