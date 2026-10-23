@@ -42,3 +42,11 @@ As taxas constantes no CSV são **ilustrativas** e não podem ser interpretadas 
 ## Procedência
 
 Base original: [digitalinnovationone/dio-lab-assistente-investimentos-rpa-n8n](https://github.com/digitalinnovationone/dio-lab-assistente-investimentos-rpa-n8n). O presente fork contém código e documentação complementares de aplicação educacional. Imagens da interface devem ser capturas autênticas, sanitizadas e vinculadas a uma execução real.
+
+## Evidência visual e saída do console apresentadas pelo autor
+
+Em 22/10/2026, o autor apresentou imagem autêntica de uma execução n8n com os **seis nós verdes**, incluindo o nó final **Responder ao Webhook** e indicação de **10 itens** ao final, acompanhada da saída do script Python com **10 clientes**, **HTTP 200** e JSON de retorno individual por cliente. O conjunto confirma, para a amostra fictícia e o ambiente local descritos, a coerência entre o fluxo e o resultado textual registrado nesta página.
+
+A captura original também contém contexto de interface; o console original inclui caminho de diretório do computador do autor. Por minimização de exposição, os arquivos brutos não foram republicados aqui. A [ficha pública da evidência](evidencias/execucao-local-2026-10-22.md) sintetiza observações verificáveis e os limites do ensaio sem reproduzir dados desnecessários. A captura autenticada permanece preservada no acervo acadêmico do autor.
+
+**Limite de interpretação:** essa prova visual **não** equivale a reimportação independente do workflow, execução em clone limpo, testes adversariais, segurança de produção nem evidência de Gmail/LLM. A realização do desafio é certificada pela DIO, separadamente da validação técnica deste MVP.

@@ -37,7 +37,7 @@ flowchart LR
   H --> I["Respond to Webhook / JSON"]
 ```
 
-Em uma execução local documentada em **22/10/2026**, a amostra fictícia continha **10 clientes**, **9 produtos** e **27 associações elegíveis**. O Python recebeu **HTTP 200** e uma lista JSON com dez mensagens. Esses números descrevem apenas essa amostra e esse ambiente, não desempenho financeiro ou portabilidade universal. Veja [método e resultados](docs/validacao.md).
+Em uma execução local documentada em **22/10/2026**, a amostra fictícia continha **10 clientes**, **9 produtos** e **27 associações elegíveis**. O Python recebeu **HTTP 200** e uma lista JSON com dez mensagens. Esses números descrevem apenas essa amostra e esse ambiente, não desempenho financeiro ou portabilidade universal. Veja [método e resultados](docs/validacao.md) e a [ficha de evidência da execução local](docs/evidencias/execucao-local-2026-10-22.md).
 
 Exemplo de regra: um cliente *Moderado* com saldo fictício de R$ 3.200 recebe CDB Prefixado e Tesouro IPCA+, mas não Fundo Multimercado, cujo mínimo na base é R$ 5.000.
 
@@ -110,7 +110,17 @@ A validação positiva abrange a amostra fictícia de dez clientes no Windows co
 
 A trilha *plus* da oficina mostra LLM para variações textuais, padronização de e-mails e integração com Gmail. Esses recursos requerem configuração, consentimento, validação de destinatários e avaliação de segurança separados. **Não são parte da funcionalidade publicada neste repositório.**
 
-## Créditos, contexto e direitos
+## Contexto acadêmico, certificação e reconhecimento
+
+Este repositório é o **fork de um laboratório didático** do desafio **“Criando um Processo de RPA com N8N e Python”**, do **Bootcamp Santander 2026 — Automação com n8n**, ofertado no ecossistema educacional da **Digital Innovation One (DIO)**. A implementação e a documentação complementares deste MVP foram realizadas por **Otávio Diniz** a partir dos materiais de partida da DIO.
+
+A realização acadêmica tem **certificação institucional**: certificado do desafio de projeto **CKTPBZWK** (22/10/2026) e certificado de conclusão do bootcamp **HOMGSHSI**. A certificação diz respeito à atividade e ao programa; não constitui homologação independente de robustez, segurança, portabilidade ou adequação ao uso produtivo deste protótipo. Os documentos pessoais originais permanecem fora do repositório público.
+
+**Reconhecimento:** agradeço à [Digital Innovation One — @digitalinnovationone](https://github.com/digitalinnovationone) e ao [Santander Open Academy](https://www.santanderopenacademy.com/pt_br/index.html) pela oportunidade formativa e pelo contexto educacional deste desafio. A referência a essas instituições registra origem e reconhecimento: **não implica endosso técnico desta implementação, parceria comercial ou vínculo profissional**. O [laboratório original da DIO](https://github.com/digitalinnovationone/dio-lab-assistente-investimentos-rpa-n8n) é a fonte didática e de proveniência.
+
+**Autoria e direitos:** a extração inicial em notebook, a página HTML e o CSV provêm do fork de origem; o script integrado, o workflow exportado e a documentação complementar identificam a evolução realizada neste projeto. Os arquivos de origem e as contribuições não devem ser tratados como se tivessem um único titular ou uma licença única. Consulte [NOTICE.md](NOTICE.md) para a relação entre componentes originais, alterações e limites de direitos.
+
+**Licenciamento:** não foi localizada uma licença explícita na raiz do repositório de origem consultado. Este fork não cria uma licença nova para os arquivos da DIO, tampouco pressupõe autorização de redistribuição comercial. Qualquer licenciamento definitivo exige conciliação dos direitos dos componentes afetados.
 
 Projeto educacional de **Otávio Diniz**, desenvolvido a partir do laboratório da **Digital Innovation One (DIO)** no curso Santander 2026 — Automação com n8n. A página HTML, o CSV e o notebook de referência pertencem ao repositório de origem, preservados neste fork com os respectivos créditos.
 
