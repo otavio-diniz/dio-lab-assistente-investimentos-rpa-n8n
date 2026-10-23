@@ -37,6 +37,10 @@ flowchart LR
   H --> I["Respond to Webhook / JSON"]
 ```
 
+![Captura autêntica da execução do workflow n8n com seis nós concluídos e dez itens de saída](docs/evidencias/fluxo-n8n-execucao-2026-10-22.png)
+
+*Captura do canvas n8n fornecida pelo autor em 22/10/2026. O teste é local e usa dados fictícios; não representa prova de execução em produção.*
+
 Em uma execução local documentada em **22/10/2026**, a amostra fictícia continha **10 clientes**, **9 produtos** e **27 associações elegíveis**. O Python recebeu **HTTP 200** e uma lista JSON com dez mensagens. Esses números descrevem apenas essa amostra e esse ambiente, não desempenho financeiro ou portabilidade universal. Veja [método e resultados](docs/validacao.md) e a [ficha de evidência da execução local](docs/evidencias/execucao-local-2026-10-22.md).
 
 Exemplo de regra: um cliente *Moderado* com saldo fictício de R$ 3.200 recebe CDB Prefixado e Tesouro IPCA+, mas não Fundo Multimercado, cujo mínimo na base é R$ 5.000.
@@ -75,6 +79,7 @@ Para um clone Linux/macOS ou solução de problemas (erro 404, diferenças de am
 ```text
 .
 ├── README.md
+├── NOTICE.md                           # Proveniência e direitos de terceiros
 ├── requirements.txt
 ├── rpa/
 │   ├── extrair_clientes.ipynb         # Material de partida da DIO
@@ -85,7 +90,10 @@ Para um clone Linux/macOS ou solução de problemas (erro 404, diferenças de am
     ├── index.html                     # Dados fictícios da DIO
     ├── data.csv                       # Produtos fictícios da DIO
     ├── execucao.md                    # Guia detalhado de uso
-    └── validacao.md                   # Resultados e limites da validação
+    ├── validacao.md                   # Resultados e limites da validação
+    └── evidencias/
+        ├── fluxo-n8n-execucao-2026-10-22.png  # Print autêntico e sanitizado
+        └── execucao-local-2026-10-22.md       # Contexto e limites da evidência
 ```
 
 ## Testes, segurança e limitações

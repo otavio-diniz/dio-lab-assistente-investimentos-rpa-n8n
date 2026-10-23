@@ -1,6 +1,6 @@
 # Evidência de execução local — 22/10/2026
 
-**Natureza:** relato técnico factual e sanitizado de uma execução de demonstração. Esta ficha não é uma captura de tela nem substitui a evidência original; sua função pública é permitir entender o método, o resultado e as limitações sem revelar a estrutura pessoal da estação de trabalho.
+**Natureza:** registro público de uma execução local de demonstração, acompanhado de **captura de tela autêntica** do canvas n8n fornecida pelo autor. A descrição preserva o método, o resultado e as limitações sem revelar a estrutura pessoal da estação de trabalho.
 
 ## Contexto e entradas
 
@@ -10,6 +10,10 @@
 - Operações: extração com Requests/BeautifulSoup, POST em JSON para Webhook, consulta HTTP do CSV, associação por perfil/saldo, mensagem por template e retorno HTTP/JSON.
 
 ## Evidência visual fornecida pelo autor
+
+![Workflow n8n executado com seis nós verdes, Webhook até Respond e dez itens retornados](fluxo-n8n-execucao-2026-10-22.png)
+
+*Figura 1 — Captura autêntica fornecida pelo autor em 22/10/2026; representa apenas a execução local observada.*
 
 A imagem apresentada pelo autor em 22/10/2026 exibe a cadeia executada com indicadores verdes em todos os seis nós:
 
@@ -34,6 +38,6 @@ No cenário sintético, o total de associações elegíveis foi **27**, segundo 
 
 ## Limites de escopo e custódia
 
-A **captura original do fluxo** foi incorporada ao caderno acadêmico privado do desafio, mantendo proveniência e contexto. Ela **não está embutida neste repositório**; esta ficha pública não deve ser apresentada como print ou vídeo da execução. O texto de console bruto do autor não é reproduzido aqui porque inclui caminhos locais e dados de demonstração cujo detalhe não é necessário à compreensão.
+A **captura original do fluxo** foi incorporada ao caderno acadêmico privado e agora também consta neste repositório como arquivo PNG autêntico, com SHA-256 `21897b2f624587c1ef337658675389c7c17d499235734b5f8f844d7871951ab0`. O print é evidência da execução local, **não** da reimportação independente ou da execução em produção. O texto completo do console do autor não foi reproduzido porque inclui caminhos locais desnecessários à compreensão.
 
 Um avaliador independente pode inspecionar [n8n/workflow.json](../../n8n/workflow.json), [rpa/extracao_clientes_teste.py](../../rpa/extracao_clientes_teste.py), [requirements.txt](../../requirements.txt) e [docs/execucao.md](../execucao.md) para repetir os passos declarados. Até que isso ocorra com evidência, **reprodutibilidade independente = não verificada**.
