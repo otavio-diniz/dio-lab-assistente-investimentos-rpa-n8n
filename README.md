@@ -130,3 +130,9 @@ A realização acadêmica tem **certificação institucional**: certificado do d
 
 **Licenciamento:** não foi localizada uma licença explícita na raiz do repositório de origem consultado. Este fork não cria uma licença nova para os arquivos da DIO, tampouco pressupõe autorização de redistribuição comercial. Qualquer licenciamento definitivo exige conciliação dos direitos dos componentes afetados.
 
+## Contribuição e feedback
+
+Comentários sobre a arquitetura, integração Python ↔ n8n, regras de elegibilidade, testes e documentação são bem-vindos. O [Issue #1 — Feedback bem-vindo — Santander n8n](https://github.com/otavio-diniz/dio-lab-assistente-investimentos-rpa-n8n/issues/1) reúne o contexto do convite público à comunidade e à DIO, com reconhecimento ao Santander Open Academy, sem pressupor avaliação ou resposta institucional.
+
+Para um problema reproduzível ou melhoria específica, utilize a [área de Issues](https://github.com/otavio-diniz/dio-lab-assistente-investimentos-rpa-n8n/issues/new/choose) e o modelo **Feedback técnico**. Antes de publicar, remova dados pessoais, credenciais, URLs privadas, logs brutos e detalhes exploráveis de vulnerabilidades. A demonstração permanece restrita a dados fictícios e Webhook local, não a produção.
+
